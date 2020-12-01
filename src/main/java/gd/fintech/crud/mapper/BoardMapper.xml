@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gd.fintech.crud.mapper.BoardMapper" >
+	
+	
+		<!--  List 출력  -->
+	<select id="selectBoardList" resultType="gd.fintech.crud.vo.Board">
+		SELECT 
+	board_no boardNo,
+	board_pw  boardPw,
+	board_title boardTitle
+	FROM board 
+	
+
+	</select>
+		
+		<!-- 상세보기 -->
+	<select id="selectBoardOne" parameterType="int" resultType="gd.fintech.crud.vo.Board">
+	  SELECT 
+		board_no boardNo,
+		board_pw  boardPw,
+		board_title boardTitle,
+		board_content boardContent,
+		board_user boardUser,
+		board_date boardDate
+
+	FROM board  
+	WHERE board_no = #{boardNo}
+		
+	
+	
+	</select>
+	
+	
+	
+	
+		<!-- board 작성  -->	
+	<insert id="insertBoard" parameterType="gd.fintech.crud.vo.Board">
+	INSERT INTO 
+	board(
+		board_pw ,
+		board_title ,
+		board_content ,
+		board_user ,
+		board_date 
+	
+	) VALUES ( 
+		#{boardPw} , 
+		#{boardTitle},
+		#{boardContent}, 
+		#{boardUser},
+		 NOW()
+
+       )
+		
+	
+	
+	</insert>
+			<!--  board 수정 -->
+	<update id="updateBoard" parameterType="gd.fintech.crud.vo.Board">
+		UPDATE 
+		board SET
+ 			board_pw =  #{boardPw}, 
+			board_title = #{boardTitle}, 
+			board_content = #{boardContent},
+			board_user = #{boardUser}
+		WHERE 
+			board_no = #{boardNo}
+		
+	
+	
+	
+	</update>	
+		
+			<!-- board삭제 -->
+	
+	<delete id="deleteBoard"  parameterType="int">
+		
+		DELETE 
+		FROM board 
+		WHERE board_no = #{boardNo}
+	
+	</delete>
+	
+
+
+
+
+
+</mapper>
