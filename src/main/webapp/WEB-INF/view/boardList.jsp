@@ -44,7 +44,7 @@
 	
 	</table>
 	<c:if test="${currentPage >1}">
-			<!-- 페이지가 1보다 크면 안보이게 -->
+			<!-- 페이지가 1보다 크면 보이게 -->
 			<a href="/boardList/1">처음</a>
 					<a href="/boardList/${currentPage-1}">이전</a>			  	
 				
