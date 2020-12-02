@@ -1,6 +1,8 @@
 package gd.fintech.crud.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -17,12 +19,27 @@ public class BoardService {
 		private BoardMapper boardMapper;
 	
 	
+	//페이징 
+		public List<Board>getBoardListByPage(int currentPage , int rowPerPage){
+			int beginRow = (currentPage -1 ) * rowPerPage; //보여줄 목록  시작하는 데이터  데이터 개수 
+			
+			Map<String, Integer>map = new HashMap<String, Integer>();
+			map.put("beginRow", beginRow);
+			map.put("rowPerPage", rowPerPage);
+			List<Board> boardList = boardMapper.selectBoardListByPage(map);
+			return  boardList;
+								
+		}
+		
+		public int getBoardListCount() {
+			return boardMapper.selectBoardListCount();
+		}
 	
-	//리스트
-	 public List<Board>selectBoardList(){
-		 return boardMapper.selectBoardList();
-	 }
 	
+		//리스트
+		 public List<Board>selectBoardList(){
+			 return boardMapper.selectBoardList();
+		 }
 	
 	
 		

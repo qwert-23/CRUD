@@ -4,6 +4,30 @@
 <mapper namespace="gd.fintech.crud.mapper.BoardMapper" >
 	
 	
+	<!-- 페이징 -->
+	<select id="selectBoardListByPage" resultType="gd.fintech.crud.vo.Board"  parameterType="java.util.Map">
+		SELECT 
+	board_no boardNo,
+	board_pw  boardPw,
+	board_title boardTitle
+	FROM board 
+	LIMIT #{beginRow} ,#{rowPerPage} 
+
+
+	</select>
+	
+	<!-- 마지막페이지  -->
+	<select id="selectBoardListCount"  resultType="int">
+	
+	SELECT 
+		COUNT(*)
+	 FROM board
+	
+	
+	</select>
+	
+	
+	
 		<!--  List 출력  -->
 	<select id="selectBoardList" resultType="gd.fintech.crud.vo.Board">
 		SELECT 

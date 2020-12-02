@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import gd.fintech.crud.mapper.BoardMapper;
 import gd.fintech.crud.service.BoardService;
 import gd.fintech.crud.vo.Board;
 
@@ -17,11 +18,23 @@ public class BoardController {
 	@Autowired 
 			BoardService boardService;
 	
-	
-	@GetMapping("/boardList")  // 목록
-	public String boardList(Model model){
-		List<Board>boardList = boardService.selectBoardList();
+	@GetMapping("/boardList/{currentPage}")
+	public String boardList(Model model, @PathVariable(value="currentPage") int currentPage) {
+		int rowPerPage = 3;  // 보여줄 행의 개수
+		int countPage = boardService.getBoardListCount();
+		int lastPage = 0; //마지막 페이지
+		if((countPage % rowPerPage) == 0) { //마지막 페이지 구하기 
+			lastPage = countPage / rowPerPage; //마지막 페이지는 총개수 / 3 
+			
+		}else {
+			lastPage = (countPage / rowPerPage) + 1; //마지막 페이지는 총개수 / 3  +1
+		}
+		
+		List<Board> boardList = boardService.getBoardListByPage(currentPage, rowPerPage);
 		model.addAttribute("boardList", boardList);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPage", lastPage);
+	
 		return "boardList";
 	}
 	
@@ -36,7 +49,7 @@ public class BoardController {
 	@PostMapping("/addBoard")  
 	public String addBoard(Board board) {
 	boardService.getaddBoard(board);
-	return "redirect:/boardList";
+	return "redirect:/boardList/1";
 		
 	}
 	
@@ -56,7 +69,7 @@ public class BoardController {
 		public String removeBoard(Model model,
 		@PathVariable(value="boardNo")int boardNo) {
 		boardService.getremoveBoard(boardNo);
-		return "redirect:/boardList";
+		return "redirect:/boardList/1";
 	}
 	
 	@GetMapping("/modifyboard/{boardNo}")	//수정 

@@ -39,13 +39,32 @@
 	
 		
 		</tbody>
-		
-	
-	
-	
+			<!--1번째 페이지 처음 이전 x   마지막 페이지는 다음 마지막 x  -->
+				
 	
 	</table>
-	
+	<c:if test="${currentPage >1}">
+			<!-- 페이지가 1보다 크면 안보이게 -->
+			<a href="/boardList/1">처음</a>
+					<a href="/boardList/${currentPage-1}">이전</a>			  	
+				
+			
+							  
+				</c:if>
+				
+					
+			
+					
+				
+				<c:if test="${currentPage <lastPage}">
+			<!-- 마지막 페이지 이면 안보이게 -->
+				
+					 <a href="/boardList/${currentPage+1}">다음</a>
+					 <a href="/boardList/${lastPage}">마지막</a>	
+				
+				
+				</c:if>
+				
 		
 
 </body>
