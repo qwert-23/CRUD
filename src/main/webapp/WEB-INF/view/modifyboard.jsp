@@ -39,7 +39,7 @@
  	
 </form>	
 
-	<a href="/boardList">boardList</a>
+	<a href="/boardList/1">boardList</a>
 
 
 </body>

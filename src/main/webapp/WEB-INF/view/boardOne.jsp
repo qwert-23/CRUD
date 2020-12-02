@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>boardOne</h1>
-	<a href="/boardList">boardList</a>
+	<a href="/boardList/1">boardList</a>
 	<table border="1">
 	
 		<tr>
